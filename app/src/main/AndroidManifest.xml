@@ -2,19 +2,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.irulu.scanpda">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity"
+            android:windowSoftInputMode="stateVisible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ReceiptByBoxNumActivity"
+            android:label="@string/receipt_by_boxnum"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".ReceiptOrReturnByFormNumActivity"
+            android:label="@string/receipt_by_formnum"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".ReceiptBySomethingElseActivity"
+            android:label="@string/receipt_by_something_else"
+            android:windowSoftInputMode="stateHidden"/>
     </application>
 
 </manifest>

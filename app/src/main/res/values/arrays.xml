@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="scantype">
+        <item>Purchase receipt</item>
+        <item>Rework storage</item>
+        <item>Refund of storage</item>
+        <item>Logistics storage</item>
+        <item>Rework out of the storage</item>
+        <item>Purchase returns</item>
+        <item>Back out of the storage</item>
+        <item>Logistics out of the storage</item>
+    </string-array>
+</resources>

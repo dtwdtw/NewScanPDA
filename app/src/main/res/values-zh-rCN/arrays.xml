@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="scantype">
+        <item>采购收货</item>
+        <item>返修入库</item>
+        <item>退件入库</item>
+        <item>物流入库</item>
+        <item>返修出库</item>
+        <item>采购退货</item>
+        <item>退件出库</item>
+        <item>物流出库</item>
+    </string-array>
+</resources>
