@@ -34,7 +34,7 @@ import java.util.Map;
  * Created by dtw on 16/10/27.
  */
 
-public class ReceiptByFormNumActivity extends AppCompatActivity {
+public class ReceiptByFormNumActivity extends BaseActivity {
     RecyclerView recyclerView;
     TextView searchedTypeTextView, resultCountTextView;
     EditText searchNumEditText;
@@ -47,7 +47,7 @@ public class ReceiptByFormNumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formnum_receivereturn);
+        setContentViewID(R.layout.activity_formnum_receivereturn);
 
         skuSnQtyBeanList = new ArrayList<>();
         bundle = getIntent().getBundleExtra(UniqueKey.getUserInfoKey());
@@ -111,6 +111,7 @@ public class ReceiptByFormNumActivity extends AppCompatActivity {
 
     //获取并显示通过单号扫描到的数据
     private void showScanResultByFormNum(String formNum) {
+        showProgressBar();
         Map<String, String> formNumInfo = new HashMap<>();
         formNumInfo.put("ReceiptNo", formNum);
 
@@ -124,6 +125,7 @@ public class ReceiptByFormNumActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(ReceiptByFormNumActivity.this, R.string.network_error, Toast.LENGTH_SHORT).show();
+                        hideProgressBar();
                     }
                 });
             }
@@ -153,9 +155,11 @@ public class ReceiptByFormNumActivity extends AppCompatActivity {
                                 noDataInfo.setSKU(getResources().getString(R.string.no_data_form));
                                 resultCountTextView.setText("");
                                 skuSnQtyBeanList.add(noDataInfo);
+                                showToast(getResources().getString(R.string.no_data_form));
                                 listAdapter_SkuSnQty_recycleView.notifyDataSetChanged();
                                 break;
                         }
+                        hideProgressBar();
                     }
                 });
             }
@@ -164,6 +168,7 @@ public class ReceiptByFormNumActivity extends AppCompatActivity {
     }
 
     private void onReceiptOrReturnByFormNum(String formNum, final UserInfo userInfo) {
+        showProgressBar();
         Map<String, String> confirmByFormNumInfo = new HashMap<>();
         confirmByFormNumInfo.put("ReceiptNo", formNum);
         confirmByFormNumInfo.put("WarehouseCode", userInfo.getPositionCode());
@@ -179,6 +184,7 @@ public class ReceiptByFormNumActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(ReceiptByFormNumActivity.this, R.string.network_error, Toast.LENGTH_SHORT).show();
+                        hideProgressBar();
                     }
                 });
             }
@@ -190,23 +196,23 @@ public class ReceiptByFormNumActivity extends AppCompatActivity {
                     public void run() {
                         switch (model.getResultId()) {
                             case 1:
-                                Toast.makeText(ReceiptByFormNumActivity.this, R.string.receipt_success, Toast.LENGTH_SHORT).show();
+                                showToast(getResources().getString(R.string.receipt_success));
                                 break;
                             case 0:
                                 switch(userInfo.getAreaCode()){
                                     case "1006":
-                                        Toast.makeText(ReceiptByFormNumActivity.this, R.string.receiving_group_receipt_unsuccess, Toast.LENGTH_SHORT).show();
+                                        showToast(getResources().getString(R.string.receiving_group_receipt_unsuccess));
                                         break;
                                     case "1007":
-                                        Toast.makeText(ReceiptByFormNumActivity.this, R.string.purchase_receipt_unsuccess, Toast.LENGTH_SHORT).show();
+                                        showToast(getResources().getString(R.string.purchase_receipt_unsuccess));
                                         break;
                                     case "1008":
-                                        Toast.makeText(ReceiptByFormNumActivity.this, R.string.warehouse_receipt_unsuccess, Toast.LENGTH_SHORT).show();
+                                        showToast(getResources().getString(R.string.warehouse_receipt_unsuccess));
                                         break;
                                 }
-                                Toast.makeText(ReceiptByFormNumActivity.this, R.string.receipt_unsuccess, Toast.LENGTH_SHORT).show();
                                 break;
                         }
+                        hideProgressBar();
                     }
                 });
             }

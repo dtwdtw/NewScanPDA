@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Theme.AppCompat.DayNight.NoActionBar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <Button
+        android:id="@+id/btn_help"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_help"
         android:layout_gravity="bottom|right"
-        android:id="@+id/btn_help"/>
+        android:visibility="gone"
+        android:text="@string/btn_help" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/server_location"
+            android:layout_gravity="left"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="20dp"
-            android:layout_gravity="left"/>
+            android:text="@string/server_location" />
+
         <RadioGroup
+            android:id="@+id/radio_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radio_location"
             android:orientation="horizontal">
 
             <RadioButton
@@ -65,12 +69,12 @@
 
             <EditText
                 android:id="@+id/edittext_username"
-                android:paddingRight="12dp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
                 android:drawableRight="@mipmap/drapdown"
-                android:layout_marginLeft="15dp"/>
+                android:paddingRight="12dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -85,11 +89,11 @@
 
             <EditText
                 android:id="@+id/edittext_password"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp" />
+                android:layout_marginLeft="15dp"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword" />
         </LinearLayout>
 
         <LinearLayout
@@ -116,11 +120,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="All Land Networking Co., Ltd" />
+            android:text="All Land Networking Co. Ltd" />
+
         <TextView
+            android:id="@+id/textView_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:id="@+id/textView_version"/>
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 </FrameLayout>

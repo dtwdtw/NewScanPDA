@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.irulu.scanpda.Adapter.GridAdapter_RecyclerView;
 import com.irulu.scanpda.Data.UniqueKey;
@@ -17,14 +19,14 @@ import com.irulu.scanpda.Model.JsonModel.UserInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     RecyclerView recyclerViewMain;
     Bundle bundle = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentViewID(R.layout.activity_main);
         bundle = getIntent().getBundleExtra(UniqueKey.getUserInfoKey());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
