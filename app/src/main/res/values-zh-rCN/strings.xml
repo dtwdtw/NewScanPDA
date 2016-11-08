@@ -35,4 +35,7 @@
     <string name="boxnum_receipt_already">该箱号已收货</string>
     <string name="server_location">服务器位置：</string>
     <string name="type_label">类型：</string>
+    <string name="receiving_group_receipt_unsuccess">收货组无此单号数据，请联系收货组组进行处理</string>
+    <string name="purchase_receipt_unsuccess">品控无此单号数据，请联系品控组进行处理</string>
+    <string name="warehouse_receipt_unsuccess">仓库无此单号数据，请联系仓库进行处理</string>
 </resources>

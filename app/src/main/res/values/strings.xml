@@ -35,4 +35,7 @@
     <string name="boxnum_receipt_already">Already receipt of this box No.</string>
     <string name="server_location">Server location:</string>
     <string name="type_label">Type</string>
+    <string name="receiving_group_receipt_unsuccess">Receiving group does not have this form number data.</string>
+    <string name="purchase_receipt_unsuccess">Purchase does not have this form number data</string>
+    <string name="warehouse_receipt_unsuccess">Warehouse does not have this form number data</string>
 </resources>

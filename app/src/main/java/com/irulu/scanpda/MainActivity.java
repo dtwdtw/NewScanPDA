@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case 2:
-                        intent = new Intent(MainActivity.this, ReceiptOrReturnByFormNumActivity.class);
+                        intent = new Intent(MainActivity.this, ReceiptByFormNumActivity.class);
                         intent.putExtra(UniqueKey.getUserInfoKey(), bundle);
                         startActivity(intent);
                         break;
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             case "1007":
                 switch (clickPosition) {
                     case 0:
-                        intent = new Intent(MainActivity.this, ReceiptOrReturnByFormNumActivity.class);
+                        intent = new Intent(MainActivity.this, ReceiptByFormNumActivity.class);
                         intent.putExtra(UniqueKey.getUserInfoKey(), bundle);
                         startActivity(intent);
                         break;
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             case "1008":
                 switch (clickPosition) {
                     case 0:
-                        intent = new Intent(MainActivity.this, ReceiptOrReturnByFormNumActivity.class);
+                        intent = new Intent(MainActivity.this, ReceiptByFormNumActivity.class);
                         intent.putExtra(UniqueKey.getUserInfoKey(), bundle);
                         startActivity(intent);
                         break;

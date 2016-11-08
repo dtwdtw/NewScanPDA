@@ -22,7 +22,7 @@
         <activity android:name=".ReceiptByBoxNumActivity"
             android:label="@string/receipt_by_boxnum"
             android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".ReceiptOrReturnByFormNumActivity"
+        <activity android:name=".ReceiptByFormNumActivity"
             android:label="@string/receipt_by_formnum"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".ReceiptBySomethingElseActivity"
