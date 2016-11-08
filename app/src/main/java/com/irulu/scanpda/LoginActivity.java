@@ -1,18 +1,26 @@
 package com.irulu.scanpda;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListPopupWindow;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +44,7 @@ import java.util.Map;
  * Created by dtw on 16/10/14.
  */
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     RadioGroup radioGroup_location;
     EditText edittext_username;
@@ -44,11 +52,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button button_login, button_exit, button_help;
     TextView textViewVersion;
 
-
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentViewID(R.layout.activity_login);
         setTitle(R.string.login_text);
 
         //初始化界面元素
@@ -59,7 +67,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         button_exit = (Button) findViewById(R.id.btn_exit);
         button_help = (Button) findViewById(R.id.btn_exit);
         textViewVersion = (TextView) findViewById(R.id.textView_version);
-
 
         button_login.setOnClickListener(this);
         button_exit.setOnClickListener(this);
@@ -158,6 +165,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
+                showProgressBar();
                 button_login.setClickable(false);
                 Map<String, String> loginfo = new HashMap<>();
                 loginfo.put("warehCode", "z");
@@ -181,6 +189,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             public void run() {
                                 Toast.makeText(LoginActivity.this, R.string.network_error, Toast.LENGTH_SHORT).show();
                                 button_login.setClickable(true);
+                                hideProgressBar();
                             }
                         });
                     }
@@ -198,11 +207,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     bundle.putParcelable(UniqueKey.getUserInfoKey(), model);
                                     intent.putExtra(UniqueKey.getUserInfoKey(), bundle);
                                     startActivity(intent);
+                                    editText_password.setText("");
                                     button_login.setClickable(true);
-                                    finish();
+                                    hideProgressBar();
                                 } else {
                                     Toast.makeText(LoginActivity.this, R.string.login_data_error, Toast.LENGTH_SHORT).show();
                                     button_login.setClickable(true);
+                                    hideProgressBar();
                                 }
                             }
                         });
@@ -216,5 +227,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

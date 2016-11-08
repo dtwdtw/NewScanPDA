@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,7 +39,7 @@ import java.util.Map;
  * Created by dtw on 16/10/24.
  */
 
-public class ReceiptByBoxNumActivity extends AppCompatActivity {
+public class ReceiptByBoxNumActivity extends BaseActivity {
     RecyclerView recyclerView;
     TextView searchedTypeTextView, resultCountTextView;
     EditText searchNumEditText;
@@ -53,7 +55,7 @@ public class ReceiptByBoxNumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_boxreceive);
+        setContentViewID(R.layout.activity_boxreceive);
 
         skuSnQtyBeanList = new ArrayList<>();
         bundle = getIntent().getBundleExtra(UniqueKey.getUserInfoKey());
@@ -135,6 +137,7 @@ public class ReceiptByBoxNumActivity extends AppCompatActivity {
     }
 
     private void showScanResult(int type, String source){
+        showProgressBar();
         UserInfo userInfo=bundle.getParcelable(UniqueKey.getUserInfoKey());
         switch (type){
             case TYPE_BOX:
@@ -146,6 +149,7 @@ public class ReceiptByBoxNumActivity extends AppCompatActivity {
     }
 
     private void onReceiped(int type,String source){
+        showProgressBar();
         UserInfo userInfo=bundle.getParcelable(UniqueKey.getUserInfoKey());
         switch (type){
             case TYPE_BOX:
@@ -173,6 +177,7 @@ public class ReceiptByBoxNumActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(ReceiptByBoxNumActivity.this, R.string.network_error, Toast.LENGTH_SHORT).show();
+                        hideProgressBar();
                     }
                 });
             }
@@ -199,7 +204,9 @@ public class ReceiptByBoxNumActivity extends AppCompatActivity {
                                 SkuSnQtyBean noDataInfo = new SkuSnQtyBean();
                                 if(model.getMsg().contains("已收")){
                                     noDataInfo.setSKU(getResources().getString(R.string.boxnum_receipt_already));
+                                    showToast(getResources().getString(R.string.boxnum_receipt_already));
                                 }else{
+                                    showToast(getResources().getString(R.string.no_data_boxNum));
                                     noDataInfo.setSKU(getResources().getString(R.string.no_data_boxNum));
                                 }
                                 resultCountTextView.setText("");
@@ -207,6 +214,7 @@ public class ReceiptByBoxNumActivity extends AppCompatActivity {
                                 listAdapter_SkuSnQty_recycleView.notifyDataSetChanged();
                                 break;
                         }
+                        hideProgressBar();
                     }
                 });
             }
@@ -238,6 +246,7 @@ public class ReceiptByBoxNumActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(ReceiptByBoxNumActivity.this, R.string.network_error, Toast.LENGTH_SHORT).show();
+                        hideProgressBar();
                     }
                 });
             }
@@ -249,12 +258,13 @@ public class ReceiptByBoxNumActivity extends AppCompatActivity {
                     public void run() {
                         switch (model.getResultId()) {
                             case 1:
-                                Toast.makeText(ReceiptByBoxNumActivity.this, R.string.receipt_success, Toast.LENGTH_SHORT).show();
+                                showToast(getResources().getString(R.string.receipt_success));
                                 break;
                             case 0:
-                                Toast.makeText(ReceiptByBoxNumActivity.this, R.string.receipt_unsuccess, Toast.LENGTH_SHORT).show();
+                                showToast(getResources().getString(R.string.receipt_unsuccess));
                                 break;
                         }
+                        hideProgressBar();
                     }
                 });
             }

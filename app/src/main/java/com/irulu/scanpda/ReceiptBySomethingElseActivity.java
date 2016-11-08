@@ -38,7 +38,7 @@ import java.util.Map;
  * Created by dtw on 16/10/31.
  */
 
-public class ReceiptBySomethingElseActivity extends AppCompatActivity {
+public class ReceiptBySomethingElseActivity extends BaseActivity {
     RecyclerView recyclerView;
     Spinner typeSpiner;
     TextView searchedTypeTextView, resultCountTextView;
@@ -56,7 +56,7 @@ public class ReceiptBySomethingElseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_somethingelse_receipt);
+        setContentViewID(R.layout.activity_somethingelse_receipt);
 
         skuSnQtyBeanList = new ArrayList<>();
         bundle = getIntent().getBundleExtra(UniqueKey.getUserInfoKey());
@@ -170,6 +170,7 @@ public class ReceiptBySomethingElseActivity extends AppCompatActivity {
     }
 
     private void showScanResult(int type, String source){
+        showProgressBar();
         UserInfo userInfo=bundle.getParcelable(UniqueKey.getUserInfoKey());
         switch (type){
             case TYPE_BOX:
@@ -181,6 +182,7 @@ public class ReceiptBySomethingElseActivity extends AppCompatActivity {
     }
 
     private void onReceiped(int type,String source){
+        showProgressBar();
         UserInfo userInfo=bundle.getParcelable(UniqueKey.getUserInfoKey());
         switch (type){
             case TYPE_BOX:
@@ -208,6 +210,7 @@ public class ReceiptBySomethingElseActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(ReceiptBySomethingElseActivity.this, R.string.network_error, Toast.LENGTH_SHORT).show();
+                        hideProgressBar();
                     }
                 });
             }
@@ -233,8 +236,10 @@ public class ReceiptBySomethingElseActivity extends AppCompatActivity {
                                 skuSnQtyBeanList.clear();
                                 SkuSnQtyBean noDataInfo = new SkuSnQtyBean();
                                 if(model.getMsg().contains("已收")){
+                                    showToast(getResources().getString(R.string.boxnum_receipt_already));
                                     noDataInfo.setSKU(getResources().getString(R.string.boxnum_receipt_already));
                                 }else{
+                                    showToast(getResources().getString(R.string.no_data_boxNum));
                                     noDataInfo.setSKU(getResources().getString(R.string.no_data_boxNum));
                                 }
                                 resultCountTextView.setText("");
@@ -242,6 +247,7 @@ public class ReceiptBySomethingElseActivity extends AppCompatActivity {
                                 listAdapter_SkuSnQty_recycleView.notifyDataSetChanged();
                                 break;
                         }
+                        hideProgressBar();
                     }
                 });
             }
@@ -273,6 +279,7 @@ public class ReceiptBySomethingElseActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(ReceiptBySomethingElseActivity.this, R.string.network_error, Toast.LENGTH_SHORT).show();
+                        hideProgressBar();
                     }
                 });
             }
@@ -284,12 +291,13 @@ public class ReceiptBySomethingElseActivity extends AppCompatActivity {
                     public void run() {
                         switch (model.getResultId()) {
                             case 1:
-                                Toast.makeText(ReceiptBySomethingElseActivity.this, R.string.receipt_success, Toast.LENGTH_SHORT).show();
+                                showToast(getResources().getString(R.string.receipt_success));
                                 break;
                             case 0:
-                                Toast.makeText(ReceiptBySomethingElseActivity.this, R.string.receipt_unsuccess, Toast.LENGTH_SHORT).show();
+                                showToast(getResources().getString(R.string.receipt_unsuccess));
                                 break;
                         }
+                        hideProgressBar();
                     }
                 });
             }

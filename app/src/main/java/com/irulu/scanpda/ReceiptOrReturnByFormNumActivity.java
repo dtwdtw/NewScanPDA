@@ -34,7 +34,7 @@ import java.util.Map;
  * Created by dtw on 16/10/27.
  */
 
-public class ReceiptOrReturnByFormNumActivity extends AppCompatActivity {
+public class ReceiptOrReturnByFormNumActivity extends BaseActivity {
     RecyclerView recyclerView;
     TextView searchedTypeTextView, resultCountTextView;
     EditText searchNumEditText;
@@ -47,7 +47,7 @@ public class ReceiptOrReturnByFormNumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formnum_receivereturn);
+        setContentViewID(R.layout.activity_formnum_receivereturn);
 
         skuSnQtyBeanList = new ArrayList<>();
         bundle = getIntent().getBundleExtra(UniqueKey.getUserInfoKey());
@@ -111,6 +111,7 @@ public class ReceiptOrReturnByFormNumActivity extends AppCompatActivity {
 
     //获取并显示通过单号扫描到的数据
     private void showScanResultByFormNum(String formNum) {
+        showProgressBar();
         Map<String, String> formNumInfo = new HashMap<>();
         formNumInfo.put("ReceiptNo", formNum);
 
@@ -124,6 +125,7 @@ public class ReceiptOrReturnByFormNumActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(ReceiptOrReturnByFormNumActivity.this, R.string.network_error, Toast.LENGTH_SHORT).show();
+                        hideProgressBar();
                     }
                 });
             }
@@ -153,9 +155,11 @@ public class ReceiptOrReturnByFormNumActivity extends AppCompatActivity {
                                 noDataInfo.setSKU(getResources().getString(R.string.no_data_form));
                                 resultCountTextView.setText("");
                                 skuSnQtyBeanList.add(noDataInfo);
+                                showToast(getResources().getString(R.string.no_data_form));
                                 listAdapter_SkuSnQty_recycleView.notifyDataSetChanged();
                                 break;
                         }
+                        hideProgressBar();
                     }
                 });
             }
@@ -164,6 +168,7 @@ public class ReceiptOrReturnByFormNumActivity extends AppCompatActivity {
     }
 
     private void onReceiptOrReturnByFormNum(String formNum, UserInfo userInfo) {
+        showProgressBar();
         Map<String, String> confirmByFormNumInfo = new HashMap<>();
         confirmByFormNumInfo.put("ReceiptNo", formNum);
         confirmByFormNumInfo.put("WarehouseCode", userInfo.getPositionCode());
@@ -179,6 +184,7 @@ public class ReceiptOrReturnByFormNumActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(ReceiptOrReturnByFormNumActivity.this, R.string.network_error, Toast.LENGTH_SHORT).show();
+                        hideProgressBar();
                     }
                 });
             }
@@ -190,12 +196,13 @@ public class ReceiptOrReturnByFormNumActivity extends AppCompatActivity {
                     public void run() {
                         switch (model.getResultId()) {
                             case 1:
-                                Toast.makeText(ReceiptOrReturnByFormNumActivity.this, R.string.receipt_success, Toast.LENGTH_SHORT).show();
+                                showToast(getResources().getString(R.string.receipt_success));
                                 break;
                             case 0:
-                                Toast.makeText(ReceiptOrReturnByFormNumActivity.this, R.string.receipt_unsuccess, Toast.LENGTH_SHORT).show();
+                                showToast(getResources().getString(R.string.receipt_unsuccess));
                                 break;
                         }
+                        hideProgressBar();
                     }
                 });
             }

@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,15 +19,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".ReceiptByBoxNumActivity"
             android:label="@string/receipt_by_boxnum"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".ReceiptOrReturnByFormNumActivity"
             android:label="@string/receipt_by_formnum"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".ReceiptBySomethingElseActivity"
             android:label="@string/receipt_by_something_else"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
     </application>
 
